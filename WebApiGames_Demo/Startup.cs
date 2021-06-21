@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiGames_Demo.Context;
+using WebApiGames_Demo.Services;
 
 namespace WebApiGames_Demo
 {
@@ -32,6 +33,8 @@ namespace WebApiGames_Demo
 
             services.AddDbContext<AppDbContext>(options =>
             options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
+
+            services.AddTransient<IMyService, MyService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

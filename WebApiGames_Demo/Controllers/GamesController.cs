@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿    using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,9 +20,18 @@ namespace WebApiGames_Demo.Controllers
             _context = context;
         }
 
-        [HttpGet]
 
-        public ActionResult<IEnumerable<Game>> Get()
+        //Distinct endpoints for the same action method
+        //[HttpGet("first")]
+        //[HttpGet("/first")]
+        [HttpGet("{value:alpha:length(5)}")] //restriction, alphanumeric value, length == 5
+        public ActionResult<Game> Get()
+        {
+            return _context.Games.FirstOrDefault();
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Game>> Get2()
         {
             try
             {
@@ -35,10 +44,12 @@ namespace WebApiGames_Demo.Controllers
             }
             
         }
-
-        [HttpGet("{id}", Name = "ObtainGame")]
-        public ActionResult<Game> Get(int id)
+        //'param2?' == optional parameter
+        //'param2=xbox' == default value
+        [HttpGet("{id}/{param2=xbox}", Name = "ObtainGame")]
+        public ActionResult<Game> Get3(int id, string param2)
         {
+            var myParameter = param2;
             var game = _context.Games.AsNoTracking().FirstOrDefault(g => g.GameId == id);
             if (game != null)
             {
@@ -47,6 +58,22 @@ namespace WebApiGames_Demo.Controllers
             else
             {
                 return NotFound();
+            }
+        }
+
+        //restriction for route == id:int:min(10}
+        //prevent unnecessary database querys
+        [HttpGet("{id:int:min(1)}", Name = "ObtainGame2")]
+        public ActionResult<Game> Get4(int id)
+        {
+            var game = _context.Games.AsNoTracking().FirstOrDefault(g => g.GameId == id);
+
+            if (game == null)
+            {
+                return NotFound();
+            } else
+            {
+                return game;
             }
         }
 

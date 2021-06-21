@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApiGames_Demo.Context;
 using WebApiGames_Demo.Models;
+using WebApiGames_Demo.Services;
 
 namespace WebApiGames_Demo.Controllers
 {
@@ -18,6 +19,12 @@ namespace WebApiGames_Demo.Controllers
         public CategoriesController(AppDbContext context)
         {
             _context = context;
+        }
+
+        [HttpGet("hello/{name}")]
+        public ActionResult<string> GetWelcome([FromServices] IMyService myservice, string name)
+        {
+            return myservice.Hello(name);
         }
 
         [HttpGet("games")]
