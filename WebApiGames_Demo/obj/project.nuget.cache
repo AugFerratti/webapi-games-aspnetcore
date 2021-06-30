@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kEiGcZpI0OI3BK7zzyeVekBmNMRG9itAfA489LOhcFlXr8Denq3v0wkPzl4tQlQ3MtOHNJ2C3WvZtI7LN7lazQ==",
+  "dgSpecHash": "z/i3bmBvtrX+h5QI9s4cD5flWU1Xu9iWgNAOgujK1Tb6w4K0xTKoMQ6cxwJsqdtfAawRNUwJ1zNOkiDBAE87nA==",
   "success": true,
-  "projectFilePath": "C:\\Workspaces\\visualstudio-workspace\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj",
+  "projectFilePath": "C:\\Users\\augus\\Source\\Repos\\AugFerratti\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\augus\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\augus\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.0.0-preview5-19227-01\\microsoft.aspnetcore.jsonpatch.3.0.0-preview5-19227-01.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Workspaces\\visualstudio-workspace\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj": {}
+    "C:\\Users\\augus\\Source\\Repos\\AugFerratti\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj": {}
   },
   "projects": {
-    "C:\\Workspaces\\visualstudio-workspace\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj": {
+    "C:\\Users\\augus\\Source\\Repos\\AugFerratti\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Workspaces\\visualstudio-workspace\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj",
+        "projectUniqueName": "C:\\Users\\augus\\Source\\Repos\\AugFerratti\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj",
         "projectName": "WebApiGames_Demo",
-        "projectPath": "C:\\Workspaces\\visualstudio-workspace\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj",
+        "projectPath": "C:\\Users\\augus\\Source\\Repos\\AugFerratti\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj",
         "packagesPath": "C:\\Users\\augus\\.nuget\\packages\\",
-        "outputPath": "C:\\Workspaces\\visualstudio-workspace\\WebApiGames_Demo\\WebApiGames_Demo\\obj\\",
+        "outputPath": "C:\\Users\\augus\\Source\\Repos\\AugFerratti\\WebApiGames_Demo\\WebApiGames_Demo\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -87,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

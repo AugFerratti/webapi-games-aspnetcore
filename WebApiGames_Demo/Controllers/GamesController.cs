@@ -1,5 +1,6 @@
-﻿    using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,18 +32,18 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Game>> Get2()
+        public async Task<ActionResult<IEnumerable<Game>>> Get2()
         {
             try
             {
-                return _context.Games.AsNoTracking().ToList();
+                return await _context.Games.AsNoTracking().ToListAsync();
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                 "Error while trying to get games from the database");
             }
-            
+
         }
         //'param2?' == optional parameter
         //'param2=xbox' == default value
@@ -64,14 +65,15 @@ namespace WebApiGames_Demo.Controllers
         //restriction for route == id:int:min(10}
         //prevent unnecessary database querys
         [HttpGet("{id:int:min(1)}", Name = "ObtainGame2")]
-        public ActionResult<Game> Get4(int id)
+        public async Task<ActionResult<Game>> Get4(int id)
         {
-            var game = _context.Games.AsNoTracking().FirstOrDefault(g => g.GameId == id);
+            var game = await _context.Games.AsNoTracking().FirstOrDefaultAsync(g => g.GameId == id);
 
             if (game == null)
             {
                 return NotFound();
-            } else
+            }
+            else
             {
                 return game;
             }
