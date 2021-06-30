@@ -7,7 +7,8 @@
     "\\WebApiGames_Demo\\Migrations",
     "\\WebApiGames_Demo\\Models",
     "\\WebApiGames_Demo\\Properties",
-    "\\WebApiGames_Demo\\Services"
+    "\\WebApiGames_Demo\\Services",
+    "\\WebApiGames_Demo\\Validations"
   ],
   "SelectedNode": "\\WebApiGames_Demo.sln",
   "PreviewInSolutionExplorer": false

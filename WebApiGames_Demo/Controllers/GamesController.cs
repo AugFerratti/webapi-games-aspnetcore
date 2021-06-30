@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiGames_Demo.Context;
+using WebApiGames_Demo.Filters;
 using WebApiGames_Demo.Models;
 
 namespace WebApiGames_Demo.Controllers
@@ -32,6 +33,7 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ApiLoggingFilter))]
         public async Task<ActionResult<IEnumerable<Game>>> Get2()
         {
             try

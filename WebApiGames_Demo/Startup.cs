@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiGames_Demo.Context;
+using WebApiGames_Demo.Filters;
 using WebApiGames_Demo.Services;
 
 namespace WebApiGames_Demo
@@ -31,6 +32,8 @@ namespace WebApiGames_Demo
         public void ConfigureServices(IServiceCollection services)
         {
             string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddScoped<ApiLoggingFilter>();
 
             services.AddDbContext<AppDbContext>(options =>
             options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,19 @@ namespace WebApiGames_Demo.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly AppDbContext _context;
-        public CategoriesController(AppDbContext context)
+        private readonly IConfiguration _configuration;
+        public CategoriesController(AppDbContext context, IConfiguration config)
         {
             _context = context;
+            _configuration = config;
+        }
+
+        [HttpGet("author")]
+        public string GetAuthor()
+        {
+            var author = _configuration["author"];
+            var connection = _configuration["ConnectionStrings:DefaultConnection"];
+            return $"Author: {author} Connection: {connection}";
         }
 
         [HttpGet("hello/{name}")]
