@@ -5,10 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using WebApiGames_Demo.Context;
 using WebApiGames_Demo.Extensions;
 using WebApiGames_Demo.Filters;
+using WebApiGames_Demo.Logging;
 using WebApiGames_Demo.Services;
 
 namespace WebApiGames_Demo
@@ -49,7 +51,7 @@ namespace WebApiGames_Demo
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -57,6 +59,11 @@ namespace WebApiGames_Demo
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiGames_Demo v1"));
             }
+
+            loggerFactory.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
+            {
+                LogLevel = LogLevel.Information
+            })); ;
 
             //Error handling middleware
             app.ConfigureExceptionHandler();

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,13 @@ namespace WebApiGames_Demo.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IConfiguration _configuration;
-        public CategoriesController(AppDbContext context, IConfiguration config)
+        private readonly ILogger _logger;
+        public CategoriesController(AppDbContext context, IConfiguration config,
+            ILogger<CategoriesController> logger)
         {
             _context = context;
             _configuration = config;
+            _logger = logger;
         }
 
         [HttpGet("author")]
@@ -41,12 +45,15 @@ namespace WebApiGames_Demo.Controllers
         [HttpGet("games")]
         public ActionResult<IEnumerable<Category>> GetGamesCategories()
         {
+            _logger.LogInformation("============ GET api/categories/games ============");
+
             return _context.Categories.Include(x => x.Games).ToList();
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Category>> Get()
         {
+            _logger.LogInformation("============ GET api/categories ============");
             try
             {
                 return _context.Categories.AsNoTracking().ToList();
@@ -61,6 +68,7 @@ namespace WebApiGames_Demo.Controllers
         [HttpGet("{id}", Name = "ObtainCategory")]
         public ActionResult<Category> Get(int id)
         {
+            _logger.LogInformation($"============ GET api/categories/id = {id} ============");
             try
             {
                 var category = _context.Categories.AsNoTracking().FirstOrDefault(c => c.CategoryId == id);
@@ -70,6 +78,7 @@ namespace WebApiGames_Demo.Controllers
                 }
                 else
                 {
+                    _logger.LogInformation($"============ GET api/categories/id = {id} NOT FOUND ============");
                     return NotFound($"The category with id={id} was not found");
                 }
             }
