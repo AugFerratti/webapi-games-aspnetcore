@@ -11,6 +11,7 @@ using WebApiGames_Demo.Context;
 using WebApiGames_Demo.Extensions;
 using WebApiGames_Demo.Filters;
 using WebApiGames_Demo.Logging;
+using WebApiGames_Demo.Repository;
 using WebApiGames_Demo.Services;
 
 namespace WebApiGames_Demo
@@ -33,6 +34,8 @@ namespace WebApiGames_Demo
 
             services.AddDbContext<AppDbContext>(options =>
             options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddTransient<IMyService, MyService>();
 
