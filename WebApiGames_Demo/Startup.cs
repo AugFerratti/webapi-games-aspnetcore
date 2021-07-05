@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using WebApiGames_Demo.Context;
+using WebApiGames_Demo.DTOs.Mappings;
 using WebApiGames_Demo.Extensions;
 using WebApiGames_Demo.Filters;
 using WebApiGames_Demo.Logging;
@@ -28,6 +30,14 @@ namespace WebApiGames_Demo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddScoped<ApiLoggingFilter>();

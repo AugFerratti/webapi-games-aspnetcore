@@ -21,7 +21,7 @@ namespace WebApiGames_Demo.Models
         [StringLength(500, ErrorMessage = "Description must have a maximum of {1} characters")]
         public string Description { get; set; }
         [Required]
-        [Range(1, 10, ErrorMessage = "The score must be between {1} and {2}")]
+        [Range(1, 100, ErrorMessage = "The score must be between {1} and {2}")]
         public decimal Score { get; set; }
         [Required]
         [StringLength(500, MinimumLength = 10)]

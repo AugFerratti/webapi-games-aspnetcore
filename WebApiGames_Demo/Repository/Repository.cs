@@ -9,16 +9,10 @@ namespace WebApiGames_Demo.Repository
     public class Repository<T> : IRepository<T> where T : class
     {
         protected AppDbContext _context;
-        private AppContext context;
 
         public Repository(AppDbContext context)
         {
             _context = context;
-        }
-
-        public Repository(AppContext context)
-        {
-            this.context = context;
         }
 
         public IQueryable<T> Get()

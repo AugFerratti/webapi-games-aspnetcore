@@ -80,3 +80,5 @@ C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\obj\De
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\obj\Debug\net5.0\WebApiGames_Demo.RazorTargetAssemblyInfo.cache
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\obj\Debug\net5.0\WebApiGames_Demo.csproj.CopyComplete
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\obj\Debug\net5.0\WebApiGames_Demo.genruntimeconfig.cache
+C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
