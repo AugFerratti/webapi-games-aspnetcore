@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebApiGames_Demo.DTOs;
 using WebApiGames_Demo.Models;
+using WebApiGames_Demo.Pagination;
 using WebApiGames_Demo.Repository;
 using WebApiGames_Demo.Services;
 
@@ -55,12 +57,25 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CategoryDTO>> Get()
+        public ActionResult<IEnumerable<CategoryDTO>> Get([FromQuery] CategoriesParameters categoriesParameters)
         {
             _logger.LogInformation("============ GET api/categories ============");
             try
             {
-                var categories = _context.CategoryRepository.Get().ToList();
+                var categories = _context.CategoryRepository.GetCategories(categoriesParameters);
+
+                var metadata = new
+                {
+                    categories.TotalCount,
+                    categories.PageSize,
+                    categories.CurrentPage,
+                    categories.TotalPages,
+                    categories.HasNext,
+                    categories.HasPrevious
+                };
+
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
                 var categoriesDTO = _mapper.Map<List<CategoryDTO>>(categories);
                 return categoriesDTO;
             }

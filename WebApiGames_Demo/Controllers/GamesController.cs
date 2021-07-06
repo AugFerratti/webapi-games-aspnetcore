@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebApiGames_Demo.DTOs;
 using WebApiGames_Demo.Filters;
 using WebApiGames_Demo.Models;
+using WebApiGames_Demo.Pagination;
 using WebApiGames_Demo.Repository;
 
 namespace WebApiGames_Demo.Controllers
@@ -33,11 +35,24 @@ namespace WebApiGames_Demo.Controllers
 
         [HttpGet]
         [ServiceFilter(typeof(ApiLoggingFilter))]
-        public ActionResult<IEnumerable<GameDTO>> Get()
+        public ActionResult<IEnumerable<GameDTO>> Get([FromQuery] GamesParameters gamesParameters)
         {
             try
             {
-                var games = _uof.GameRepository.Get().ToList();
+                var games = _uof.GameRepository.GetGames(gamesParameters);
+
+                var metadata = new
+                {
+                    games.TotalCount,
+                    games.PageSize,
+                    games.CurrentPage,
+                    games.TotalPages,
+                    games.HasNext,
+                    games.HasPrevious
+                };
+
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
                 var gamesDTO = _mapper.Map<List<GameDTO>>(games);
                 return gamesDTO;
             }
