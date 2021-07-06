@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WebApiGames_Demo.Context;
 using WebApiGames_Demo.Models;
 using WebApiGames_Demo.Pagination;
@@ -14,15 +15,15 @@ namespace WebApiGames_Demo.Repository
 
         }
 
-        public PagedList<Category> GetCategories(CategoriesParameters categoryParameters)
+        public async Task<PagedList<Category>> GetCategories(CategoriesParameters categoryParameters)
         {
-            return PagedList<Category>.ToPagedList(Get().OrderBy(on => on.Name),
+            return await PagedList<Category>.ToPagedList(Get().OrderBy(on => on.Name),
                 categoryParameters.PageNumber,
                 categoryParameters.PageSize);
         }
-        public IEnumerable<Category> GetCategoriesGames()
+        public async Task<IEnumerable<Category>> GetCategoriesGames()
         {
-            return Get().Include(x => x.Games);
+            return await Get().Include(x => x.Games).ToListAsync();
         }
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Av5urUIEXlicb9NFG8TUCoa09VYFzLDaUlWQqCe6V+tob1bjMJV3T26nZF9TZK4p5eLXAktuQKFJXxLMFdNspQ==",
+  "dgSpecHash": "YOXsokGQrxELG+0TnfnNZyv7j2dsW82h8Ydgzxi+9esdRbC2Z8JR5INK2mFotU1B6wUp1tadd0sdskwRWrleLA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\augus\\Source\\Repos\\AugFerratti\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj",
+  "projectFilePath": "C:\\Users\\augus\\source\\repos\\AugFerratti\\WebApiGames_Demo\\WebApiGames_Demo\\WebApiGames_Demo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\augus\\.nuget\\packages\\automapper\\8.1.1\\automapper.8.1.1.nupkg.sha512",
     "C:\\Users\\augus\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\6.1.1\\automapper.extensions.microsoft.dependencyinjection.6.1.1.nupkg.sha512",

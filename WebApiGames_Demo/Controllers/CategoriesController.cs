@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WebApiGames_Demo.DTOs;
 using WebApiGames_Demo.Models;
 using WebApiGames_Demo.Pagination;
@@ -47,22 +48,22 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpGet("games")]
-        public ActionResult<IEnumerable<CategoryDTO>> GetGamesCategories()
+        public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetGamesCategories()
         {
             _logger.LogInformation("============ GET api/categories/games ============");
 
-            var categories = _context.CategoryRepository.GetCategoriesGames().ToList();
+            var categories = await _context.CategoryRepository.GetCategoriesGames();
             var categoriesDTO = _mapper.Map<List<CategoryDTO>>(categories);
             return categoriesDTO;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CategoryDTO>> Get([FromQuery] CategoriesParameters categoriesParameters)
+        public async Task<ActionResult<IEnumerable<CategoryDTO>>> Get([FromQuery] CategoriesParameters categoriesParameters)
         {
             _logger.LogInformation("============ GET api/categories ============");
             try
             {
-                var categories = _context.CategoryRepository.GetCategories(categoriesParameters);
+                var categories = await _context.CategoryRepository.GetCategories(categoriesParameters);
 
                 var metadata = new
                 {
@@ -87,12 +88,12 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpGet("{id}", Name = "ObtainCategory")]
-        public ActionResult<CategoryDTO> Get(int id)
+        public async Task<ActionResult<CategoryDTO>> Get(int id)
         {
             _logger.LogInformation($"============ GET api/categories/id = {id} ============");
             try
             {
-                var category = _context.CategoryRepository.GetById(c => c.CategoryId == id);
+                var category = await _context.CategoryRepository.GetById(c => c.CategoryId == id);
                 if (category != null)
                 {
                     var categoryDTO = _mapper.Map<CategoryDTO>(category);
@@ -113,13 +114,13 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] CategoryDTO categoryDto)
+        public async Task<ActionResult> Post([FromBody] CategoryDTO categoryDto)
         {
             try
             {
                 var category = _mapper.Map<Category>(categoryDto);
                 _context.CategoryRepository.Add(category);
-                _context.Commit();
+                await _context.Commit();
                 var categoryDTO = _mapper.Map<CategoryDTO>(category);
                 return new CreatedAtRouteResult("", new { id = category.CategoryId }, categoryDTO);
             }
@@ -132,7 +133,7 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] CategoryDTO categoryDto)
+        public async Task<ActionResult> Put(int id, [FromBody] CategoryDTO categoryDto)
         {
             try
             {
@@ -142,7 +143,7 @@ namespace WebApiGames_Demo.Controllers
                 }
                 var category = _mapper.Map<Category>(categoryDto);
                 _context.CategoryRepository.Update(category);
-                _context.Commit();
+                await _context.Commit();
                 return Ok($"The category with id={id} was successfully updated");
             }
             catch (Exception)
@@ -153,11 +154,11 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<CategoryDTO> Delete(int id)
+        public async Task<ActionResult<CategoryDTO>> Delete(int id)
         {
             try
             {
-                var category = _context.CategoryRepository.GetById(c => c.CategoryId == id);
+                var category = await _context.CategoryRepository.GetById(c => c.CategoryId == id);
 
                 if (category == null)
                 {
@@ -165,7 +166,7 @@ namespace WebApiGames_Demo.Controllers
                 }
 
                 _context.CategoryRepository.Delete(category);
-                _context.Commit();
+                await _context.Commit();
                 var categoryDto = _mapper.Map<CategoryDTO>(category);
                 return categoryDto;
             }

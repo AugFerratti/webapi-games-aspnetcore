@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WebApiGames_Demo.DTOs;
 using WebApiGames_Demo.Filters;
 using WebApiGames_Demo.Models;
@@ -26,20 +27,20 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpGet("lowerscore")]
-        public ActionResult<IEnumerable<GameDTO>> GetGamesScores()
+        public async Task<ActionResult<IEnumerable<GameDTO>>> GetGamesScores()
         {
-            var games = _uof.GameRepository.GetGameByScore().ToList();
+            var games = await _uof.GameRepository.GetGameByScore();
             var gamesDTO = _mapper.Map<List<GameDTO>>(games);
             return gamesDTO;
         }
 
         [HttpGet]
         [ServiceFilter(typeof(ApiLoggingFilter))]
-        public ActionResult<IEnumerable<GameDTO>> Get([FromQuery] GamesParameters gamesParameters)
+        public async Task<ActionResult<IEnumerable<GameDTO>>> Get([FromQuery] GamesParameters gamesParameters)
         {
             try
             {
-                var games = _uof.GameRepository.GetGames(gamesParameters);
+                var games = await _uof.GameRepository.GetGames(gamesParameters);
 
                 var metadata = new
                 {
@@ -65,12 +66,12 @@ namespace WebApiGames_Demo.Controllers
 
 
         [HttpGet("{id}")]
-        public ActionResult<GameDTO> GetById(int id)
+        public async Task<ActionResult<GameDTO>> GetById(int id)
         {
-            var game = _uof.GameRepository.GetById(g => g.GameId == id);
+            var game = await _uof.GameRepository.GetById(g => g.GameId == id);
             if (game != null)
             {
-                var gameDTO = _mapper.Map<GameDTO>(game);
+                var gameDTO =  _mapper.Map<GameDTO>(game);
                 return gameDTO;
             }
             else
@@ -80,17 +81,17 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] GameDTO gameDto)
+        public async Task<ActionResult> Post([FromBody] GameDTO gameDto)
         {
             var game = _mapper.Map<Game>(gameDto);
             _uof.GameRepository.Add(game);
-            _uof.Commit();
+            await _uof.Commit();
             var gameDTO = _mapper.Map<GameDTO>(game);
             return new CreatedAtRouteResult("", new { id = game.GameId }, gameDTO);
         }
 
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] GameDTO gameDto)
+        public async Task<ActionResult> Put(int id, [FromBody] GameDTO gameDto)
         {
             if (id != gameDto.GameId)
             {
@@ -98,14 +99,14 @@ namespace WebApiGames_Demo.Controllers
             }
             var game = _mapper.Map<Game>(gameDto);
             _uof.GameRepository.Update(game);
-            _uof.Commit();
+            await _uof.Commit();
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<GameDTO> Delete(int id)
+        public async Task<ActionResult<GameDTO>> Delete(int id)
         {
-            var game = _uof.GameRepository.GetById (g => g.GameId == id);
+            var game = await _uof.GameRepository.GetById (g => g.GameId == id);
 
             if (game == null)
             {
@@ -113,7 +114,7 @@ namespace WebApiGames_Demo.Controllers
             }
 
             _uof.GameRepository.Delete(game);
-            _uof.Commit();
+            await _uof.Commit();
 
             var gameDto = _mapper.Map<GameDTO>(game);
             return gameDto;

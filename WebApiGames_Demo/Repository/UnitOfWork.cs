@@ -1,4 +1,5 @@
-﻿using WebApiGames_Demo.Context;
+﻿using System.Threading.Tasks;
+using WebApiGames_Demo.Context;
 
 namespace WebApiGames_Demo.Repository
 {
@@ -29,9 +30,9 @@ namespace WebApiGames_Demo.Repository
             }
         }
 
-        public void Commit()
+        public async Task Commit()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()
