@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebApiGames_Demo.DTOs;
 using WebApiGames_Demo.Filters;
@@ -71,7 +70,7 @@ namespace WebApiGames_Demo.Controllers
             var game = await _uof.GameRepository.GetById(g => g.GameId == id);
             if (game != null)
             {
-                var gameDTO =  _mapper.Map<GameDTO>(game);
+                var gameDTO = _mapper.Map<GameDTO>(game);
                 return gameDTO;
             }
             else
@@ -106,7 +105,7 @@ namespace WebApiGames_Demo.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<GameDTO>> Delete(int id)
         {
-            var game = await _uof.GameRepository.GetById (g => g.GameId == id);
+            var game = await _uof.GameRepository.GetById(g => g.GameId == id);
 
             if (game == null)
             {

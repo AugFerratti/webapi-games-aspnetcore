@@ -1,13 +1,17 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 using WebApiGames_Demo.Context;
 using WebApiGames_Demo.DTOs.Mappings;
 using WebApiGames_Demo.Extensions;
@@ -30,30 +34,59 @@ namespace WebApiGames_Demo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowApiRequest",
+                    builder =>
+                    builder.WithOrigins("https://www.apirequest.io")
+                         .WithMethods("GET")
+                         );
+            });
+
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
             });
 
+            string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
+
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
-
-            services.AddScoped<ApiLoggingFilter>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<AppDbContext>(options =>
             options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                  .AddEntityFrameworkStores<AppDbContext>()
+                  .AddDefaultTokenProviders();
 
-            services.AddTransient<IMyService, MyService>();
+            services.AddAuthentication(
+             JwtBearerDefaults.AuthenticationScheme).
+              AddJwtBearer(options =>
+               options.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuer = true,
+                   ValidateAudience = true,
+                   ValidateLifetime = true,
+                   ValidAudience = Configuration["TokenConfiguration:Audience"],
+                   ValidIssuer = Configuration["TokenConfiguration:Issuer"],
+                   ValidateIssuerSigningKey = true,
+                   IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(Configuration["Jwt:key"]))
+               });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApiGames_Demo", Version = "v1" });
             });
+
+
+            services.AddScoped<ApiLoggingFilter>();
+
+            services.AddTransient<IMyService, MyService>();
 
             services.AddControllers().AddNewtonsoftJson(options =>
             {
@@ -86,7 +119,14 @@ namespace WebApiGames_Demo
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            //app.UseCors(opt => opt.WithOrigins("https://www.apirequest.io")
+            //.WithMethods("GET"));
+
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {

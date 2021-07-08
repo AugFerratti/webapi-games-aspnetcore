@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApiGames_Demo.Validations;
 
 namespace WebApiGames_Demo.Models
 {
@@ -21,6 +18,7 @@ namespace WebApiGames_Demo.Models
         [StringLength(500, ErrorMessage = "Description must have a maximum of {1} characters")]
         public string Description { get; set; }
         [Required]
+        [Column(TypeName = "decimal(2,2")]
         [Range(1, 100, ErrorMessage = "The score must be between {1} and {2}")]
         public decimal Score { get; set; }
         [Required]

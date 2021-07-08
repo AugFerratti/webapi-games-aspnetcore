@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -6,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebApiGames_Demo.DTOs;
 using WebApiGames_Demo.Models;
@@ -16,9 +17,11 @@ using WebApiGames_Demo.Services;
 
 namespace WebApiGames_Demo.Controllers
 {
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[Controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    [EnableCors("AllowApiRequest")]
+        public class CategoriesController : ControllerBase
     {
         private readonly IUnitOfWork _context;
         private readonly IConfiguration _configuration;
@@ -88,6 +91,7 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpGet("{id}", Name = "ObtainCategory")]
+        //[EnableCors("AllowApiRequest")]
         public async Task<ActionResult<CategoryDTO>> Get(int id)
         {
             _logger.LogInformation($"============ GET api/categories/id = {id} ============");
