@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApiGames_Demo</name>
+    </assembly>
+    <members>
+        <member name="M:WebApiGames_Demo.Controllers.AutorizeController.RegisterUser(WebApiGames_Demo.DTOs.UserDTO)">
+            <summary>
+            Register a new user
+            </summary>
+            <param name="model">An object UserDTO</param>
+            <returns>Status 200 and a token for the user</returns>
+        </member>
+        <member name="M:WebApiGames_Demo.Controllers.AutorizeController.Login(WebApiGames_Demo.DTOs.UserDTO)">
+            <summary>
+            Check user credentials
+            </summary>
+            <param name="userInfo">An object UserDTO type</param>
+            <returns>Status 200 and a token for the client</returns>
+            <remarks>Returns Status 200 and the token for the new</remarks>
+        </member>
+        <member name="M:WebApiGames_Demo.Controllers.CategoriesController.Get(System.Int32)">
+            <summary>
+            Obtain one category by ID
+            </summary>
+            <param name="id">Category ID</param>
+            <returns>Objects Category</returns>
+        </member>
+        <member name="M:WebApiGames_Demo.Controllers.CategoriesController.Post(WebApiGames_Demo.DTOs.CategoryDTO)">
+            <summary>
+            Includes a new category
+            </summary>
+            <remarks>
+            Request example:
+            
+            POST api/categories
+            {
+            "categoryid": 1
+            "name": category1
+            "urlimage": "https://test.net/1.jpg"
+            }
+            </remarks>
+            <param name="categoryDto">object Category</param>
+            <returns>The included category object</returns>
+            <remarks>Returns an included category object</remarks>
+        </member>
+        <member name="M:WebApiGames_Demo.Controllers.GamesController.Get(WebApiGames_Demo.Pagination.GamesParameters)">
+            <summary>
+            Shows a list of games
+            </summary>
+            <param name="gamesParameters"></param>
+            <returns>Returns a list of Games objects</returns>
+        </member>
+        <member name="M:WebApiGames_Demo.Controllers.GamesController.GetById(System.Int32)">
+            <summary>
+            Obtain a game by its gameID
+            </summary>
+            <param name="id">GameID</param>
+            <returns>A Game object</returns>
+        </member>
+    </members>
+</doc>

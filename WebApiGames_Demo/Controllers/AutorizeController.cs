@@ -11,6 +11,7 @@ using WebApiGames_Demo.DTOs;
 
 namespace WebApiGames_Demo.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class AutorizeController : ControllerBase
@@ -34,6 +35,12 @@ namespace WebApiGames_Demo.Controllers
             return "AutorizeController :: Acessed in : " + DateTime.Now.ToLongDateString();
         }
 
+
+        /// <summary>
+        /// Register a new user
+        /// </summary>
+        /// <param name="model">An object UserDTO</param>
+        /// <returns>Status 200 and a token for the user</returns>
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser([FromBody] UserDTO model)
         {
@@ -55,6 +62,12 @@ namespace WebApiGames_Demo.Controllers
             return Ok(GenerateToken(model));
         }
 
+        /// <summary>
+        /// Check user credentials
+        /// </summary>
+        /// <param name="userInfo">An object UserDTO type</param>
+        /// <returns>Status 200 and a token for the client</returns>
+        /// <remarks>Returns Status 200 and the token for the new</remarks>
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] UserDTO userInfo)
         {

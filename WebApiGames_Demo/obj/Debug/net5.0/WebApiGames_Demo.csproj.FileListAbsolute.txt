@@ -67,7 +67,6 @@ C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\bin\De
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\obj\Debug\net5.0\WebApiGames_Demo.csproj.AssemblyReference.cache
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\obj\Debug\net5.0\WebApiGames_Demo.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\obj\Debug\net5.0\WebApiGames_Demo.AssemblyInfoInputs.cache
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\obj\Debug\net5.0\WebApiGames_Demo.AssemblyInfo.cs
@@ -169,3 +168,5 @@ C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\bin\De
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\bin\Debug\net5.0\WebApiGames_Demo.xml
+C:\Users\augus\Source\Repos\AugFerratti\WebApiGames_Demo\WebApiGames_Demo\obj\Debug\net5.0\WebApiGames_Demo.csproj.AssemblyReference.cache

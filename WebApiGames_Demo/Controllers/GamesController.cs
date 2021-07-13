@@ -13,6 +13,8 @@ using WebApiGames_Demo.Repository;
 
 namespace WebApiGames_Demo.Controllers
 {
+    [ApiConventionType(typeof(DefaultApiConventions))]
+    [Produces("application/json")]
     [Route("api/[Controller]")]
     [ApiController]
     public class GamesController : ControllerBase
@@ -33,6 +35,11 @@ namespace WebApiGames_Demo.Controllers
             return gamesDTO;
         }
 
+        /// <summary>
+        /// Shows a list of games
+        /// </summary>
+        /// <param name="gamesParameters"></param>
+        /// <returns>Returns a list of Games objects</returns>
         [HttpGet]
         [ServiceFilter(typeof(ApiLoggingFilter))]
         public async Task<ActionResult<IEnumerable<GameDTO>>> Get([FromQuery] GamesParameters gamesParameters)
@@ -63,7 +70,11 @@ namespace WebApiGames_Demo.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Obtain a game by its gameID
+        /// </summary>
+        /// <param name="id">GameID</param>
+        /// <returns>A Game object</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<GameDTO>> GetById(int id)
         {

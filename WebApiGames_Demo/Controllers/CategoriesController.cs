@@ -18,6 +18,7 @@ using WebApiGames_Demo.Services;
 namespace WebApiGames_Demo.Controllers
 {
     //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Produces("application/json")]
     [Route("api/[Controller]")]
     [ApiController]
     [EnableCors("AllowApiRequest")]
@@ -90,8 +91,16 @@ namespace WebApiGames_Demo.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtain one category by ID
+        /// </summary>
+        /// <param name="id">Category ID</param>
+        /// <returns>Objects Category</returns>
+
         [HttpGet("{id}", Name = "ObtainCategory")]
         //[EnableCors("AllowApiRequest")]
+        [ProducesResponseType(typeof(GameDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CategoryDTO>> Get(int id)
         {
             _logger.LogInformation($"============ GET api/categories/id = {id} ============");
@@ -117,7 +126,25 @@ namespace WebApiGames_Demo.Controllers
 
         }
 
+        /// <summary>
+        /// Includes a new category
+        /// </summary>
+        /// <remarks>
+        /// Request example:
+        /// 
+        /// POST api/categories
+        /// {
+        /// "categoryid": 1
+        /// "name": category1
+        /// "urlimage": "https://test.net/1.jpg"
+        /// }
+        /// </remarks>
+        /// <param name="categoryDto">object Category</param>
+        /// <returns>The included category object</returns>
+        /// <remarks>Returns an included category object</remarks>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Post([FromBody] CategoryDTO categoryDto)
         {
             try
@@ -137,6 +164,8 @@ namespace WebApiGames_Demo.Controllers
         }
 
         [HttpPut("{id}")]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Put))]
         public async Task<ActionResult> Put(int id, [FromBody] CategoryDTO categoryDto)
         {
             try

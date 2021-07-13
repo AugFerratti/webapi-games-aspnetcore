@@ -13,6 +13,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using WebApiGames_Demo.Context;
 using WebApiGames_Demo.DTOs.Mappings;
@@ -88,12 +91,32 @@ namespace WebApiGames_Demo
             }
             );
 
-            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApiGames_Demo", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "WebApiGamesCatolog",
+                    Description = "Catalog of games and categories",
+                    //TermsOfService = new Uri("https://macoratti.net/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "augusto",
+                        Email = "augusto.feratti@gmail.com"
+                    },
+                    //License = new OpenApiLicense
+                    //{
+                    //    Name = "Use with LICX",
+                    //    Url = new Uri("https://macoratti.net/license")
+                    //}
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
+            services.AddControllers();
 
             services.AddScoped<ApiLoggingFilter>();
 
@@ -114,7 +137,7 @@ namespace WebApiGames_Demo
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiGames_Demo v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiGamesCatolog"));
             }
 
             loggerFactory.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
